@@ -1,0 +1,48 @@
+plugins {
+    id 'groovy'
+    id 'java-gradle-plugin'
+    id 'com.gradle.plugin-publish' version '0.12.0'
+}
+
+project.group 'com.github.karacca'
+project.version '1.0.0'
+project.description 'Demo Greeting Plugin'
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    compile gradleApi()
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+gradlePlugin {
+    plugins {
+        greetingPlugin {
+            id = 'com.github.karacca.greeting'
+            implementationClass = 'com.github.karacca.greeting.GreetingPlugin'
+        }
+    }
+}
+
+pluginBundle {
+    website = 'https://github.com/karacca/greeting'
+    vcsUrl = 'https://github.com/karacca/greeting.git'
+    tags = ['demo', 'greeting']
+    description = 'Greetings from here!'
+
+    plugins {
+        greetingPlugin {
+            displayName = 'Gradle Greeting plugin'
+            id = 'com.github.karacca.greeting'
+        }
+    }
+}
